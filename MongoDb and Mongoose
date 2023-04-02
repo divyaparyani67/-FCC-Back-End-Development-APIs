@@ -15,14 +15,27 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const Person = mongoose.model('Person', personSchema);
 
+
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  const person = new Person({
+    "name": "Divya",
+    "age": "25",
+    "favoriteFoods": ["Dosa", "Rice"]
+  });
+  person.save(function(err, data) {
+    if (err) return console.error(err);
+    done(null, data);
+  })
 };
+
+
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(arrayOfPeople, function(err, data) {
+    if (err) return console.error(err);
+    done(null, data);
+  });
 };
-
 const findPeopleByName = (personName, done) => {
   done(null /*, data*/);
 };
